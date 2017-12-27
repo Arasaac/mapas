@@ -22,33 +22,29 @@
         
         
     <script src="https://api.simile-widgets.org/exhibit/HEAD/exhibit-api.js?locale=es" type="text/javascript"></script>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Materializecss -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    
+                <meta name="viewport" content="width=device-width, initial-scale=1">
     
 </head>
 
 <body>
-    <div class="container-fluid" style="padding:0;">
-        <!--
-        <div class="map-lens" data-ex-role="lens" style="display: none" data-ex-item-types="act">
-            <p><strong><span data-ex-content=".label"></span></strong></p>
-                        <a title="Enlace al catálogo de programas" target="_blank" data-ex-href-content=".label"><span data-ex-content=".label"></span></a>
-        </div>
-        -->
-        <div class="row " id="content" style="margin:0;">
-            <div class="col-sm-4">
-                <div class="mypanel" data-ex-role="exhibit-facet" data-ex-facet-class="TextSearch" data-ex-facet-label="Buscar en el mapa" data-ex-expressions=".label,.Dirección,.Ciudad,.Proyecto">
+    <div class="section" style="padding:0;">
+            <h2 class="header center green-text">ARASAAC en el mundo</h2>
+        
+        <div class="row" id="content" style="margin:0;">
+
+            <div class="col m4">
+                <div class="" data-ex-role="exhibit-facet" data-ex-facet-class="TextSearch" data-ex-facet-label="Buscar en el mapa" data-ex-expressions=".label,.Dirección,.Ciudad,.Proyecto">
                 </div>
                 
-                <div class="mypanel" data-ex-role="exhibit-facet" data-ex-expression=".tipo" data-ex-facet-label="Tipo" data-ex-collapsible="true" data-ex-show-missing="false" ></div>
+                <div class="" data-ex-role="exhibit-facet" data-ex-expression=".tipo" data-ex-facet-label="Tipo" data-ex-collapsible="true" 
+                data-ex-scroll="false" data-ex-show-missing="false" ></div>
                 
-<!--
-                 <div class="mypanel" data-ex-selection="17/18" data-ex-role="exhibit-facet" data-ex-expression="!ccentro.curso" data-ex-facet-label="Curso" data-ex-collapsible="true" data-ex-show-missing="false" data-ex-scroll="false"></div>
--->
             </div>           
-            <div class="col-sm-8">
+            <div class="col m8">
                     <!-- información del recurso -->
                     <!-- mapa -->
                     <div data-ex-role="view" data-ex-view-class="Map" 
@@ -62,7 +58,7 @@
                         >
                     <h4 data-ex-content=".label"></h4>
                     <p><strong>Proyecto:</strong> <span data-ex-content=".proyecto"></span></p>
-                    <a data-ex-href-content=".web" data-ex-content=".web"></a>
+                    <div data-ex-i-exists=".web"><a target="_blank" data-ex-href-content=".web" data-ex-content=".web"></a></div>
 
                 </div>
                     </div>
@@ -70,9 +66,8 @@
                 </div>
             
         </div>
-        <footer>
-        </footer>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </body>
 
 </html>
