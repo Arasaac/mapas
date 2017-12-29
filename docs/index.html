@@ -1,625 +1,139 @@
 <!DOCTYPE html>
-<head>    
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <script>L_PREFER_CANVAS = false; L_NO_TOUCH = false; L_DISABLE_3D = false;</script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.2.0/dist/leaflet.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.2.0/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
-    <link rel="stylesheet" href="https://rawgit.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css" />
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    
-            <style> #map_104857f1e7aa4c7db0955358220a2764 {
-                position : relative;
-                width : 100.0%;
-                height: 100.0%;
-                left: 0.0%;
-                top: 0.0%;
-                }
-            </style>
-        
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css" />
+<html>
+<!--
+DATA ID	Coordinates	Latitude	Longitude	Tipo	Name	Address	Postal Code	City	Province	Country	MainWeb	ProyectWeb	URLNews	Description	Awards	URLAward	Picture	Pictures	Video	Email
+-->
+
+<head>
+    <meta charset="utf-8">
+    <title>Arasaac en el mundo</title>
+    <!-- metadata -->
+    <!-- Datos + importadores -->
+
+
+    <link href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQy3eFMS6IDpuWMK22wC4-Kg4AMmJa0S1Fjfb3klH16P5ikrfim0iu16ZW5YoF8gcsCuIVdfq4V2K-6/pub?gid=0&single=true&output=csv"
+        type="text/csv" rel="exhibit/data" data-ex-has-column-titles="true" data-ex-value-separator=";">
+
+    <link href="schema.json" type="application/json" rel="exhibit-data">
+
+    <!-- libs simile-exhibit -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <link rel="exhibit-extension" href="https://api.simile-widgets.org/exhibit/HEAD/extensions/map/map-extension.js" data-ex-apikey="AIzaSyBuT434HQRsA-h3cpHSxYNskHKGblpjFf0"
+    />
+
+
+    <script src="https://api.simile-widgets.org/exhibit/HEAD/exhibit-api.js?locale=es" type="text/javascript"></script>
+
+    <!-- Materializecss -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript">
+        function prepara_lens(elemento) {
+            $(elemento).find('.carousel').flickity({
+                // options
+                cellAlign: 'center',
+                contain: true
+            });
+            console.log("aqui estoy2");
+            cosa = elemento;
+        }
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+    <style>
+        .carousel-cell {
+            width: 100%;
+            /* full width */
+            height: 160px;
+            /* height of carousel */
+            margin-right: 10px;
+        }
+
+        .map-lens {
+
+            width: 240px;
+        }
+    </style>
 </head>
-<body>    
-    
-            <div class="folium-map" id="map_104857f1e7aa4c7db0955358220a2764" ></div>
-        
+
+<body>
+    <div class="section" style="padding:0;">
+        <h2 class="header center green-text">ARASAAC en el mundo</h2>
+
+        <div class="row" id="content" style="margin:0;">
+
+            <div class="col m3">
+                <div class="" data-ex-role="exhibit-facet" data-ex-facet-class="TextSearch" data-ex-facet-label="Buscar en el mapa" data-ex-expressions=".label,.City,.Country,.Proyect">
+                </div>
+
+                <div class="" data-ex-role="exhibit-facet" data-ex-expression=".Tipo" data-ex-facet-label="Tipo" data-ex-collapsible="true"
+                    data-ex-scroll="false" data-ex-show-missing="false"></div>
+                <div class="" data-ex-role="exhibit-facet" data-ex-expression=".Country" data-ex-facet-label="País" data-ex-collapsible="true"
+                    data-ex-scroll="false" data-ex-show-missing="false"></div>
+                <div class="" data-ex-role="exhibit-facet" data-ex-expression=".City" data-ex-facet-label="Ciudad" data-ex-collapsible="true"
+                    data-ex-height="20em" data-ex-show-missing="false"></div>
+
+
+            </div>
+            <div class="col m9">
+                <!-- información del recurso -->
+                <!-- mapa -->
+                <div data-ex-role="view" data-ex-view-class="Map" data-ex-label="ARASAAC Map" data-ex-latlng=".Coordinates" data-ex-autoposition="true"
+                    data-ex-map-height="500" data-ex-show-tool-box="true" data-ex-shape-width="16" data-ex-shape-height="16"
+                    data-ex-pin="false" data-ex-color-key=".Tipo" data-ex-bubble-maxWidth="200">
+                </div>
+
+                <div class="map-lens " data-ex-item-types="Item" data-ex-role="lens" data-ex-on-show="prepara_lens(this)" style="display: none">
+
+                    <div data-ex-if-exists=".Picture">
+
+                        <a data-ex-href-content=".Picture">
+                            <img width="240px" data-ex-src-content=".Picture" alt="Main Picture">
+                        </a>
+
+                    </div>
+
+                    <p class="center-align">
+                        <strong data-ex-content=".Name"></strong>
+                    </p>
+                    <div data-ex-if-exists=".MainWeb">
+                            <a target="_blank" data-ex-href-content=".MainWeb" data-ex-content=".MainWeb"></a>
+                        </div>
+
+                    <p>
+                        <strong>Proyecto:</strong>
+                        <br>
+                        <span data-ex-content=".Description"></span>
+                    </p>
+                    
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js"></script>
+    <!-- or -->
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script>
+        var evento, cosa2, cosa3, caro;
+        jQuery(document).bind("xxonItemShow.exhibit", function (event, item, node) {
+            console.log("aqui estoy maño");
+            $(node).find('.carousel').carousel();
+            cosa1 = event;
+            cosa2 = item;
+            cosa3 = node;
+        });
+    </script>
+
+
 </body>
-<script>    
-    
 
-            
-                var bounds = null;
-            
-
-            var map_104857f1e7aa4c7db0955358220a2764 = L.map(
-                                  'map_104857f1e7aa4c7db0955358220a2764',
-                                  {center: [41.6561,-0.8773],
-                                  zoom: 3,
-                                  maxBounds: bounds,
-                                  layers: [],
-                                  worldCopyJump: false,
-                                  crs: L.CRS.EPSG3857
-                                 });
-            
-        
-    
-            var tile_layer_99ca9dceeda84988bb7cd2f5b95ffce7 = L.tileLayer(
-                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                {
-  "attribution": null,
-  "detectRetina": false,
-  "maxNativeZoom": 18,
-  "maxZoom": 18,
-  "minZoom": 0,
-  "noWrap": false,
-  "subdomains": "abc"
-}
-                ).addTo(map_104857f1e7aa4c7db0955358220a2764);
-        
-    
-            var tile_layer_cbb2a17321164b1398f064aa762aab25 = L.tileLayer(
-                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                {
-  "attribution": null,
-  "detectRetina": false,
-  "maxNativeZoom": 18,
-  "maxZoom": 18,
-  "minZoom": 0,
-  "noWrap": false,
-  "subdomains": "abc"
-}
-                ).addTo(map_104857f1e7aa4c7db0955358220a2764);
-        
-    
-            var feature_group_d1dfcab4d9224509a623d905f68aa6ea = L.featureGroup(
-                ).addTo(map_104857f1e7aa4c7db0955358220a2764);
-        
-    
-            var marker_cluster_84a0ae9317d74d5eb289da91309a0544 = L.markerClusterGroup({
-                
-            });
-            feature_group_d1dfcab4d9224509a623d905f68aa6ea.addLayer(marker_cluster_84a0ae9317d74d5eb289da91309a0544);
-            
-    
-
-            var marker_e912a0638e2f4b9990b109d92e3baa25 = L.marker(
-                [37.9745085, -1.1208299],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("C.F.I. Gabriel Pérez Cárcel")
-                .addTo(marker_cluster_84a0ae9317d74d5eb289da91309a0544);
-            
-    
-
-                var icon_f6d022bd8d414441b420886181dd7d9e = L.AwesomeMarkers.icon({
-                    icon: 'fa-h-square',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_e912a0638e2f4b9990b109d92e3baa25.setIcon(icon_f6d022bd8d414441b420886181dd7d9e);
-            
-    
-            var popup_e7045c4a5f7b411d8e05d4ba08b3c8a9 = L.popup({maxWidth: '300'});
-
-            
-                var html_f206d73244ea4becb0e8b530433eb2c7 = $('<div id="html_f206d73244ea4becb0e8b530433eb2c7" style="width: 100.0%; height: 100.0%;"><b>Grupo de Trabajo sobre el "Dolor en las personas con TEA"</b><br><a href="http://www.gabrielperezcarcel.es/">http://www.gabrielperezcarcel.es/</a></div>')[0];
-                popup_e7045c4a5f7b411d8e05d4ba08b3c8a9.setContent(html_f206d73244ea4becb0e8b530433eb2c7);
-            
-
-            marker_e912a0638e2f4b9990b109d92e3baa25.bindPopup(popup_e7045c4a5f7b411d8e05d4ba08b3c8a9);
-
-            
-        
-    
-
-            var marker_184502b149d640b993b9da1fad0f4d81 = L.marker(
-                [38.0021449, -1.1201253],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("CEE Las Boqueras")
-                .addTo(marker_cluster_84a0ae9317d74d5eb289da91309a0544);
-            
-    
-
-                var icon_77950e3547f243328975aac4a50ac654 = L.AwesomeMarkers.icon({
-                    icon: 'fa-h-square',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_184502b149d640b993b9da1fad0f4d81.setIcon(icon_77950e3547f243328975aac4a50ac654);
-            
-    
-            var popup_2ce288bb2c0c4b2288f31f728b7328e4 = L.popup({maxWidth: '300'});
-
-            
-                var html_df3792431c4848ef86d73329dcc19bb9 = $('<div id="html_df3792431c4848ef86d73329dcc19bb9" style="width: 100.0%; height: 100.0%;"><b>Grupo de Trabajo sobre el "Dolor en las personas con TEA"</b><br><a href="https://www.murciaeduca.es/ceeparaninosautistas/sitio/">https://www.murciaeduca.es/ceeparaninosautistas/sitio/</a></div>')[0];
-                popup_2ce288bb2c0c4b2288f31f728b7328e4.setContent(html_df3792431c4848ef86d73329dcc19bb9);
-            
-
-            marker_184502b149d640b993b9da1fad0f4d81.bindPopup(popup_2ce288bb2c0c4b2288f31f728b7328e4);
-
-            
-        
-    
-
-            var marker_7cfddfe09eb2443c9360c3aa8c4d5aac = L.marker(
-                [37.9789576, -1.1122792],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("CEE Santísimo Cristo de la Misericordia")
-                .addTo(marker_cluster_84a0ae9317d74d5eb289da91309a0544);
-            
-    
-
-                var icon_40bf4d71a66a4dd19c8b00a9ee4f4d0e = L.AwesomeMarkers.icon({
-                    icon: 'fa-h-square',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_7cfddfe09eb2443c9360c3aa8c4d5aac.setIcon(icon_40bf4d71a66a4dd19c8b00a9ee4f4d0e);
-            
-    
-            var popup_935681344c9c4bc7b1116ef4b14f5a3a = L.popup({maxWidth: '300'});
-
-            
-                var html_60f1993871bc475f8d15c861a890f579 = $('<div id="html_60f1993871bc475f8d15c861a890f579" style="width: 100.0%; height: 100.0%;"><b>Grupo de Trabajo sobre el "Dolor en las personas con TEA"</b><br><a href="https://www.murciaeduca.es/ceestmocristodelamisericordia/sitio/">https://www.murciaeduca.es/ceestmocristodelamisericordia/sitio/</a></div>')[0];
-                popup_935681344c9c4bc7b1116ef4b14f5a3a.setContent(html_60f1993871bc475f8d15c861a890f579);
-            
-
-            marker_7cfddfe09eb2443c9360c3aa8c4d5aac.bindPopup(popup_935681344c9c4bc7b1116ef4b14f5a3a);
-
-            
-        
-    
-
-            var marker_7100c7fd730c43cc9dee62561612471f = L.marker(
-                [37.93304129999999, -1.1620243000000001],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Hospital Clínico Universitario Virgen de la Arrixaca")
-                .addTo(marker_cluster_84a0ae9317d74d5eb289da91309a0544);
-            
-    
-
-                var icon_a3219e75ed5a4190bd0abb6117147a13 = L.AwesomeMarkers.icon({
-                    icon: 'fa-h-square',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_7100c7fd730c43cc9dee62561612471f.setIcon(icon_a3219e75ed5a4190bd0abb6117147a13);
-            
-    
-            var popup_10ff0d22268e49c09398c5f0ed454519 = L.popup({maxWidth: '300'});
-
-            
-                var html_019bb1d6ad97485ba5a312488d23ce1f = $('<div id="html_019bb1d6ad97485ba5a312488d23ce1f" style="width: 100.0%; height: 100.0%;"><b>Grupo de Trabajo sobre el "Dolor en las personas con TEA"</b><br><a href="https://www.murciasalud.es/seccion.php?idsec=347">https://www.murciasalud.es/seccion.php?idsec=347</a></div>')[0];
-                popup_10ff0d22268e49c09398c5f0ed454519.setContent(html_019bb1d6ad97485ba5a312488d23ce1f);
-            
-
-            marker_7100c7fd730c43cc9dee62561612471f.bindPopup(popup_10ff0d22268e49c09398c5f0ed454519);
-
-            
-        
-    
-
-            var marker_03135f24bff64ea693756143837ce937 = L.marker(
-                [40.296912299999995, -3.4568351],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Hospital del Sureste")
-                .addTo(marker_cluster_84a0ae9317d74d5eb289da91309a0544);
-            
-    
-
-                var icon_4bec4169fe6d47df8c907b801f0692b3 = L.AwesomeMarkers.icon({
-                    icon: 'fa-h-square',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_03135f24bff64ea693756143837ce937.setIcon(icon_4bec4169fe6d47df8c907b801f0692b3);
-            
-    
-            var popup_fc1d55acd7914f648fb5e3bd14e03b1e = L.popup({maxWidth: '300'});
-
-            
-                var html_e9702b6dc1664c23a7a04f35170ab8e4 = $('<div id="html_e9702b6dc1664c23a7a04f35170ab8e4" style="width: 100.0%; height: 100.0%;"><b>Proyecto de adaptación visual para mejorar la comunicación funiconal con personas con TEA, mediante el uso de pictogramas.</b><br><a href="http://www.surestea.org/anticipacion-para-ir-al-hospital/">http://www.surestea.org/anticipacion-para-ir-al-hospital/</a></div>')[0];
-                popup_fc1d55acd7914f648fb5e3bd14e03b1e.setContent(html_e9702b6dc1664c23a7a04f35170ab8e4);
-            
-
-            marker_03135f24bff64ea693756143837ce937.bindPopup(popup_fc1d55acd7914f648fb5e3bd14e03b1e);
-
-            
-        
-    
-
-            var marker_c7199499e3dc4c77bb1ed34aa6d5fe5a = L.marker(
-                [40.2862429, -3.8162550000000004],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Hospital Universitario de Fuenlabrada")
-                .addTo(marker_cluster_84a0ae9317d74d5eb289da91309a0544);
-            
-    
-
-                var icon_3f3179906ed84c92ba6d895e2146c448 = L.AwesomeMarkers.icon({
-                    icon: 'fa-h-square',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_c7199499e3dc4c77bb1ed34aa6d5fe5a.setIcon(icon_3f3179906ed84c92ba6d895e2146c448);
-            
-    
-            var popup_8bbef73bf10a4a2584bdfbfa208e07e0 = L.popup({maxWidth: '300'});
-
-            
-                var html_15be2423580d424a9c2ece9a430752da = $('<div id="html_15be2423580d424a9c2ece9a430752da" style="width: 100.0%; height: 100.0%;"><b>TEAyudamos</b><br><a href="http://www.teayudamos.eu/">http://www.teayudamos.eu/</a></div>')[0];
-                popup_8bbef73bf10a4a2584bdfbfa208e07e0.setContent(html_15be2423580d424a9c2ece9a430752da);
-            
-
-            marker_c7199499e3dc4c77bb1ed34aa6d5fe5a.bindPopup(popup_8bbef73bf10a4a2584bdfbfa208e07e0);
-
-            
-        
-    
-
-            var marker_61faf9bacdb842f483830cc947d05632 = L.marker(
-                [41.6354811, -0.9003394],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Hospital Universitario Miguel Servet")
-                .addTo(marker_cluster_84a0ae9317d74d5eb289da91309a0544);
-            
-    
-
-                var icon_6f0366241a63406ea2a4e9b1b6ee7e67 = L.AwesomeMarkers.icon({
-                    icon: 'fa-h-square',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_61faf9bacdb842f483830cc947d05632.setIcon(icon_6f0366241a63406ea2a4e9b1b6ee7e67);
-            
-    
-            var popup_d7fd45a13e9f481789f18dc2c69616e5 = L.popup({maxWidth: '300'});
-
-            
-                var html_bd5ae677245749caac40f6c20e4e5e52 = $('<div id="html_bd5ae677245749caac40f6c20e4e5e52" style="width: 100.0%; height: 100.0%;"><b>Picto Partos</b><br><a href="https://pictopartos.es/">https://pictopartos.es/</a></div>')[0];
-                popup_d7fd45a13e9f481789f18dc2c69616e5.setContent(html_bd5ae677245749caac40f6c20e4e5e52);
-            
-
-            marker_61faf9bacdb842f483830cc947d05632.bindPopup(popup_d7fd45a13e9f481789f18dc2c69616e5);
-
-            
-        
-    
-
-            var marker_8abaea8699c647199307b20d81da5ff8 = L.marker(
-                [40.367787899999996, -3.5501812000000004],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("SuresTEA")
-                .addTo(marker_cluster_84a0ae9317d74d5eb289da91309a0544);
-            
-    
-
-                var icon_addab050b7bb4e4b8c480b4c4ba318a5 = L.AwesomeMarkers.icon({
-                    icon: 'fa-h-square',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_8abaea8699c647199307b20d81da5ff8.setIcon(icon_addab050b7bb4e4b8c480b4c4ba318a5);
-            
-    
-            var popup_755d26e8a3334f86baebe2fa56f9589f = L.popup({maxWidth: '300'});
-
-            
-                var html_6224e6c6681148eaa3543e5c689caae9 = $('<div id="html_6224e6c6681148eaa3543e5c689caae9" style="width: 100.0%; height: 100.0%;"><b>Proyecto de adaptación visual para mejorar la comunicación funiconal con personas con TEA, mediante el uso de pictogramas.</b><br><a href="http://www.surestea.org/anticipacion-para-ir-al-hospital/">http://www.surestea.org/anticipacion-para-ir-al-hospital/</a></div>')[0];
-                popup_755d26e8a3334f86baebe2fa56f9589f.setContent(html_6224e6c6681148eaa3543e5c689caae9);
-            
-
-            marker_8abaea8699c647199307b20d81da5ff8.bindPopup(popup_755d26e8a3334f86baebe2fa56f9589f);
-
-            
-        
-    
-            var feature_group_578835e9ccfd4e3e96dda170cd7fa5bc = L.featureGroup(
-                ).addTo(map_104857f1e7aa4c7db0955358220a2764);
-        
-    
-            var marker_cluster_f5c13a9ce1d94de195752b07e2a888ed = L.markerClusterGroup({
-                
-            });
-            feature_group_578835e9ccfd4e3e96dda170cd7fa5bc.addLayer(marker_cluster_f5c13a9ce1d94de195752b07e2a888ed);
-            
-    
-
-            var marker_9eaca88cb67543ac9da2892c8d4f05f2 = L.marker(
-                [38.505068900000005, -0.2328866],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Ajuntament de la Vila Joiosa ")
-                .addTo(marker_cluster_f5c13a9ce1d94de195752b07e2a888ed);
-            
-    
-
-                var icon_00c15b136d4c4ac981ee989d2a83cf57 = L.AwesomeMarkers.icon({
-                    icon: 'fa-university',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_9eaca88cb67543ac9da2892c8d4f05f2.setIcon(icon_00c15b136d4c4ac981ee989d2a83cf57);
-            
-    
-            var popup_23003c18e8b648d983befecec2b8bf0a = L.popup({maxWidth: '300'});
-
-            
-                var html_8843c8f3c3b843f197cc30adea572d7c = $('<div id="html_8843c8f3c3b843f197cc30adea572d7c" style="width: 100.0%; height: 100.0%;"><b>Adaptación de paneles en lugares clave del patrimonio histórico de la ciudad, incorporando la lectura fácil y pictogramas para completar su accesibilidad intelectual.</b><br><a href="http://www.villajoyosa.com/pdf/default.php?item=6928">http://www.villajoyosa.com/pdf/default.php?item=6928</a></div>')[0];
-                popup_23003c18e8b648d983befecec2b8bf0a.setContent(html_8843c8f3c3b843f197cc30adea572d7c);
-            
-
-            marker_9eaca88cb67543ac9da2892c8d4f05f2.bindPopup(popup_23003c18e8b648d983befecec2b8bf0a);
-
-            
-        
-    
-
-            var marker_2d39c29bb5bc419583bbf4880e01f7ed = L.marker(
-                [60.18790199999999, 24.926745899999997],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Museo del Deporte de Finlandia – Suomen Urheilumuseo")
-                .addTo(marker_cluster_f5c13a9ce1d94de195752b07e2a888ed);
-            
-    
-
-                var icon_658a86e8f99e45a0b818b49ce54f4fd2 = L.AwesomeMarkers.icon({
-                    icon: 'fa-university',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_2d39c29bb5bc419583bbf4880e01f7ed.setIcon(icon_658a86e8f99e45a0b818b49ce54f4fd2);
-            
-    
-            var popup_a01794cf1dcd4895ab270344b88eb8a2 = L.popup({maxWidth: '300'});
-
-            
-                var html_11e52cdf418f4f6d90cc0abba2500ba2 = $('<div id="html_11e52cdf418f4f6d90cc0abba2500ba2" style="width: 100.0%; height: 100.0%;"><b>Adaptación de un tablero de comunicación con pictogramas de ARASAAC y fotografías</b></div>')[0];
-                popup_a01794cf1dcd4895ab270344b88eb8a2.setContent(html_11e52cdf418f4f6d90cc0abba2500ba2);
-            
-
-            marker_2d39c29bb5bc419583bbf4880e01f7ed.bindPopup(popup_a01794cf1dcd4895ab270344b88eb8a2);
-
-            
-        
-    
-
-            var marker_53b86cdb5bb14730bbaced172bc3b06b = L.marker(
-                [60.4729187, 26.945292100000003],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Museo Marítimo de Finlandia – Suomen merimuseo")
-                .addTo(marker_cluster_f5c13a9ce1d94de195752b07e2a888ed);
-            
-    
-
-                var icon_db193c5a4a1e40eaa4c17edcc95ea672 = L.AwesomeMarkers.icon({
-                    icon: 'fa-university',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_53b86cdb5bb14730bbaced172bc3b06b.setIcon(icon_db193c5a4a1e40eaa4c17edcc95ea672);
-            
-    
-            var popup_5d3dcfc6557b43c6bb9381df9f8e22b6 = L.popup({maxWidth: '300'});
-
-            
-                var html_4e552286788b457dbdb21208c0fe6481 = $('<div id="html_4e552286788b457dbdb21208c0fe6481" style="width: 100.0%; height: 100.0%;"><b>Adaptación de un tablero de comunicación con pictogramas de ARASAAC y fotografías</b></div>')[0];
-                popup_5d3dcfc6557b43c6bb9381df9f8e22b6.setContent(html_4e552286788b457dbdb21208c0fe6481);
-            
-
-            marker_53b86cdb5bb14730bbaced172bc3b06b.bindPopup(popup_5d3dcfc6557b43c6bb9381df9f8e22b6);
-
-            
-        
-    
-
-            var marker_e7240d43ad444d8882978be8495b1cb1 = L.marker(
-                [66.50756990000001, 25.7248034],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Museo Provincial de Laponia – Lapin maakuntamuseo")
-                .addTo(marker_cluster_f5c13a9ce1d94de195752b07e2a888ed);
-            
-    
-
-                var icon_f4d06473e9374ca8aaf0d1d05d887736 = L.AwesomeMarkers.icon({
-                    icon: 'fa-university',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_e7240d43ad444d8882978be8495b1cb1.setIcon(icon_f4d06473e9374ca8aaf0d1d05d887736);
-            
-    
-            var popup_18e1ae587c2341a8a426c3b309147506 = L.popup({maxWidth: '300'});
-
-            
-                var html_a9c80969ddcb485196f914390359edf4 = $('<div id="html_a9c80969ddcb485196f914390359edf4" style="width: 100.0%; height: 100.0%;"><b>Adaptación de un tablero de comunicación con pictogramas de ARASAAC y fotografías</b></div>')[0];
-                popup_18e1ae587c2341a8a426c3b309147506.setContent(html_a9c80969ddcb485196f914390359edf4);
-            
-
-            marker_e7240d43ad444d8882978be8495b1cb1.bindPopup(popup_18e1ae587c2341a8a426c3b309147506);
-
-            
-        
-    
-
-            var marker_c775fc9e982248d2bc21515b61e96e7a = L.marker(
-                [60.1792216, 24.796554399999998],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Museo Helinä Rautavaaran")
-                .addTo(marker_cluster_f5c13a9ce1d94de195752b07e2a888ed);
-            
-    
-
-                var icon_641ed56bcb31489b98e90915a37e7f04 = L.AwesomeMarkers.icon({
-                    icon: 'fa-university',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_c775fc9e982248d2bc21515b61e96e7a.setIcon(icon_641ed56bcb31489b98e90915a37e7f04);
-            
-    
-            var popup_6a093fa78c9c4424873c31d112b923ba = L.popup({maxWidth: '300'});
-
-            
-                var html_84d4a39fbef043c884f10418d3fa1b51 = $('<div id="html_84d4a39fbef043c884f10418d3fa1b51" style="width: 100.0%; height: 100.0%;"><b>Adaptación de un tablero de comunicación con pictogramas de ARASAAC y fotografías</b></div>')[0];
-                popup_6a093fa78c9c4424873c31d112b923ba.setContent(html_84d4a39fbef043c884f10418d3fa1b51);
-            
-
-            marker_c775fc9e982248d2bc21515b61e96e7a.bindPopup(popup_6a093fa78c9c4424873c31d112b923ba);
-
-            
-        
-    
-
-            var marker_2cb4faedee084381a6e2a9864f3611a6 = L.marker(
-                [60.253725, 25.0116729],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Papunet")
-                .addTo(marker_cluster_f5c13a9ce1d94de195752b07e2a888ed);
-            
-    
-
-                var icon_98b4519f3836446297bd832c35b04c58 = L.AwesomeMarkers.icon({
-                    icon: 'fa-university',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_2cb4faedee084381a6e2a9864f3611a6.setIcon(icon_98b4519f3836446297bd832c35b04c58);
-            
-    
-            var popup_2eb40989cd144bf1ae276306586cd305 = L.popup({maxWidth: '300'});
-
-            
-                var html_23698d199e4d4262b75e8f0e850ac9d6 = $('<div id="html_23698d199e4d4262b75e8f0e850ac9d6" style="width: 100.0%; height: 100.0%;"><b>Adaptación de tableros de comunicación con pictogramas de ARASAAC y fotografías para los museos públicos de Finlandia</b><br><a href="http://papunet.net">http://papunet.net</a></div>')[0];
-                popup_2eb40989cd144bf1ae276306586cd305.setContent(html_23698d199e4d4262b75e8f0e850ac9d6);
-            
-
-            marker_2cb4faedee084381a6e2a9864f3611a6.bindPopup(popup_2eb40989cd144bf1ae276306586cd305);
-
-            
-        
-    
-
-            var marker_f0354f3d93a34d58be8590c4d7baea80 = L.marker(
-                [38.508165600000005, -0.22959699999999997],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .bindTooltip("Vilamuseu")
-                .addTo(marker_cluster_f5c13a9ce1d94de195752b07e2a888ed);
-            
-    
-
-                var icon_674f665d2591439692aeb4f6d95fc641 = L.AwesomeMarkers.icon({
-                    icon: 'fa-university',
-                    iconColor: 'white',
-                    markerColor: 'blue',
-                    prefix: 'fa',
-                    extraClasses: 'fa-rotate-0'
-                    });
-                marker_f0354f3d93a34d58be8590c4d7baea80.setIcon(icon_674f665d2591439692aeb4f6d95fc641);
-            
-    
-            var popup_88654448d1834d85b8c0872c02769136 = L.popup({maxWidth: '300'});
-
-            
-                var html_9adbd20fd01f46488b41452169610da8 = $('<div id="html_9adbd20fd01f46488b41452169610da8" style="width: 100.0%; height: 100.0%;"><b>Adaptación de paneles en lugares clave del patrimonio histórico de la ciudad, incorporando la lectura fácil y pictogramas para completar su accesibilidad intelectual.</b><br><a href="http://www.villajoyosa.com/pdf/default.php?item=6928">http://www.villajoyosa.com/pdf/default.php?item=6928</a></div>')[0];
-                popup_88654448d1834d85b8c0872c02769136.setContent(html_9adbd20fd01f46488b41452169610da8);
-            
-
-            marker_f0354f3d93a34d58be8590c4d7baea80.bindPopup(popup_88654448d1834d85b8c0872c02769136);
-
-            
-        
-    
-            var layer_control_8c321900c532440e8d5a75d1163ca47a = {
-                base_layers : { "openstreetmap" : tile_layer_cbb2a17321164b1398f064aa762aab25, },
-                overlays : { "hospital" : feature_group_d1dfcab4d9224509a623d905f68aa6ea,"museo" : feature_group_578835e9ccfd4e3e96dda170cd7fa5bc, }
-                };
-            L.control.layers(
-                layer_control_8c321900c532440e8d5a75d1163ca47a.base_layers,
-                layer_control_8c321900c532440e8d5a75d1163ca47a.overlays,
-                {position: 'topright',
-                 collapsed: true,
-                 autoZIndex: true
-                }).addTo(map_104857f1e7aa4c7db0955358220a2764);
-        
-</script>
+</html>
