@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Arasaac en el mundo</title>
+    <!-- metadata -->
+    <!-- Datos + importadores -->
+
+
+    <link href="mapa2.csv"
+        type="text/csv" rel="exhibit/data" data-ex-has-column-titles="true" 
+        data-ex-value-separator=";">
+
+    <link href="schema.json" type="application/json" rel="exhibit-data">
+
+    <!-- libs simile-exhibit -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <link rel="exhibit-extension" href="https://api.simile-widgets.org/exhibit/HEAD/extensions/map/map-extension.js" data-ex-apikey="AIzaSyBuT434HQRsA-h3cpHSxYNskHKGblpjFf0"
+    />
+
+
+    <script src="https://api.simile-widgets.org/exhibit/HEAD/exhibit-api.js?locale=es" type="text/javascript"></script>
+
+    <!-- Materializecss -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <script type="text/javascript">
+        function prepara_lens(elemento){
+            $(elemento).find('.carousel').flickity({
+                // options
+                cellAlign: 'center',
+                contain: true
+              });
+            console.log("aqui estoy2");
+            cosa = elemento;
+        }
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+    <style>
+            .carousel-cell {
+                width: 100%; /* full width */
+                height: 160px; /* height of carousel */
+                margin-right: 10px;
+              }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="section" style="padding:0;">
+        <h2 class="header center green-text">ARASAAC en el mundo</h2>
+
+        <div class="row" id="content" style="margin:0;">
+
+            <div class="col m3">
+                <div class="" data-ex-role="exhibit-facet" data-ex-facet-class="TextSearch" 
+                data-ex-facet-label="Buscar en el mapa" 
+                data-ex-expressions=".label,.City,.Country,.Proyect">
+                </div>
+
+                <div class="" data-ex-role="exhibit-facet" data-ex-expression=".Tipo" data-ex-facet-label="Tipo" data-ex-collapsible="true"
+                    data-ex-scroll="false" data-ex-show-missing="false"></div>
+                <div class="" data-ex-role="exhibit-facet" data-ex-expression=".Country" data-ex-facet-label="País" data-ex-collapsible="true"
+                data-ex-scroll="false" data-ex-show-missing="false"></div>
+                <div class="" data-ex-role="exhibit-facet" data-ex-expression=".City" data-ex-facet-label="Ciudad" data-ex-collapsible="true"
+                data-ex-height="20em"  data-ex-show-missing="false"></div>
+                
+                
+            </div>
+            <div class="col m9">
+                <!-- información del recurso -->
+                <!-- mapa -->
+                <div data-ex-role="view" data-ex-view-class="Map" data-ex-label="ARASAAC Map" 
+                    data-ex-latlng=".coord" data-ex-autoposition="true"
+                    data-ex-map-height="500" data-ex-show-tool-box="true" data-ex-shape-width="16" 
+                    data-ex-shape-height="16"
+                    data-ex-pin="false" data-ex-color-key=".Tipo">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js"></script>
+    <!-- or -->
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script>
+            var evento, cosa2, cosa3, caro;
+            jQuery(document).bind("xxonItemShow.exhibit", function(event, item, node) {
+                console.log("aqui estoy maño");
+                $(node).find('.carousel').carousel();
+                cosa1 = event;
+                cosa2 = item;
+                cosa3 = node;
+            });
+            </script>
+    
+
+</body>
+
+</html>
