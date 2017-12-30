@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <!--
@@ -10,15 +11,15 @@ DATA ID	Coordinates	Latitude	Longitude	Tipo	Name	Address	Postal Code	City	Provin
     <!-- metadata -->
     <!-- Datos + importadores -->
 
-
     <link href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRPRBRAaf1uSjYDNqWJ6r5bcbzLjTZ5B_RuDyCBbND3QLa44bj6Dc-VqrHXtyFod4j6KVbjOxaXKR5J/pub?gid=0&single=true&output=csv"
         type="text/csv" rel="exhibit/data" data-ex-has-column-titles="true" data-ex-value-separator=";">
-
+    <!--
+    <link href="centros_arasaac.csv" type="text/csv" rel="exhibit/data" data-ex-has-column-titles="true" data-ex-value-separator=";">
+    -->
     <link href="schema.json" type="application/json" rel="exhibit-data">
 
     <!-- libs simile-exhibit -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
     <link rel="exhibit-extension" href="https://api.simile-widgets.org/exhibit/HEAD/extensions/map/map-extension.js" data-ex-apikey="AIzaSyBuT434HQRsA-h3cpHSxYNskHKGblpjFf0"
     />
 
@@ -44,17 +45,24 @@ DATA ID	Coordinates	Latitude	Longitude	Tipo	Name	Address	Postal Code	City	Provin
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
     <style>
-        .carousel-cell {
-            width: 100%;
-            /* full width */
-            height: 160px;
-            /* height of carousel */
-            margin-right: 10px;
-        }
-
         .map-lens {
 
             width: 240px;
+        }
+
+        .carousel-proyecto {
+            background: #EEE;
+            height: 120px;
+        }
+
+        .carousel-cell {
+            margin-right: 20px;
+            overflow: hidden;
+        }
+
+        .carousel-cell img {
+            display: block;
+            height: 120px;
         }
     </style>
 </head>
@@ -66,9 +74,11 @@ DATA ID	Coordinates	Latitude	Longitude	Tipo	Name	Address	Postal Code	City	Provin
         <div class="row" id="content" style="margin:0;">
 
             <div class="col m3">
-                <div class="" data-ex-role="exhibit-facet" data-ex-facet-class="TextSearch" 
-                    data-ex-facet-label="Buscar en el mapa" 
-                    data-ex-expressions=".Name,.City,.Country,.Province,.Description">
+                <div class="card-panel hoverable infoboxproyecto" style="display:none;">
+
+                </div>
+
+                <div class="" data-ex-role="exhibit-facet" data-ex-facet-class="TextSearch" data-ex-facet-label="Buscar en el mapa" data-ex-expressions=".Name,.City,.Country,.Province,.Description">
                 </div>
 
                 <div class="" data-ex-role="exhibit-facet" data-ex-expression=".Tipo" data-ex-facet-label="Tipo" data-ex-collapsible="true"
@@ -88,7 +98,9 @@ DATA ID	Coordinates	Latitude	Longitude	Tipo	Name	Address	Postal Code	City	Provin
                     data-ex-pin="false" data-ex-color-key=".Tipo" data-ex-bubble-maxWidth="200">
                 </div>
 
-                <div class="map-lens " data-ex-item-types="Item" data-ex-role="lens" data-ex-on-show="prepara_lens(this)" style="display: none">
+                <div class="map-lens " data-ex-item-types="Item" data-ex-role="lens" 
+                    data-ex-carousel-content=".Pictures"
+                    style="display: none">
 
                     <div data-ex-if-exists=".Picture">
 
@@ -98,19 +110,22 @@ DATA ID	Coordinates	Latitude	Longitude	Tipo	Name	Address	Postal Code	City	Provin
 
                     </div>
 
-                    <p class="center-align">
+                    <p class="center-align nombreProyecto">
                         <strong data-ex-content=".Name"></strong>
                     </p>
                     <div data-ex-if-exists=".MainWeb">
-                            <a target="_blank" data-ex-href-content=".MainWeb" data-ex-content=".MainWeb"></a>
-                        </div>
+                        <a target="_blank" data-ex-href-content=".MainWeb" data-ex-content=".MainWeb"></a>
+                    </div>
 
+
+
+                    <div class="carousel-proyectos js-flickity" data-flickity-options='{ "imagesLoaded": true, "percentPosition": false }'>
+                    </div>
                     <p>
                         <strong>Proyecto:</strong>
                         <br>
                         <span data-ex-content=".Description"></span>
                     </p>
-                    
 
                 </div>
             </div>
@@ -122,16 +137,55 @@ DATA ID	Coordinates	Latitude	Longitude	Tipo	Name	Address	Postal Code	City	Provin
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js"></script>
-    <!-- or -->
+
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+
     <script>
-        var evento, cosa2, cosa3, caro;
-        jQuery(document).bind("xxonItemShow.exhibit", function (event, item, node) {
-            console.log("aqui estoy maño");
-            $(node).find('.carousel').carousel();
-            cosa1 = event;
-            cosa2 = item;
-            cosa3 = node;
+            (function($){
+                $.event.special.destroyed = {
+                  remove: function(o) {
+                    if (o.handler) {
+                      o.handler()
+                    }
+                  }
+                }
+              })(jQuery)
+              
+
+        function imagen(im) {
+
+        }
+        var evento, cosa2, cosa3, caro, imgs, mycarousel;
+        jQuery(document).bind("onItemShow.exhibit", function (event, item, node) {
+            $('.infoboxproyecto').empty();
+            $('.infoboxproyecto').append('<div class="carousel-proyecto" ></div>');
+
+            imgs = $(node).attr('carousel').split(';');
+
+            mycarousel = $('.carousel-proyecto');
+            mycarousel.empty();
+            for (var i = 0, len = imgs.length; i < len; i++) {
+                mycarousel.append('<img height="120" src="' + imgs[i] + '" alt="imagen carrusel">');
+            }
+            $('.infoboxproyecto').show();
+            mycarousel.flickity({
+                // options
+                autoplay: true,
+                imagesLoaded: true,
+                percentPosition: true,
+                pageDots: true,
+                cellAlign: 'center',
+                contain: true,
+                wrapAround: true
+            });
+
+            mycarousel.flickity('resize');
+            
+            $(document).on('click', 'img[src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png"]', 
+                function(){
+                    $('.infoboxproyecto').hide();
+            });
         });
     </script>
 
