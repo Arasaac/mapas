@@ -31,17 +31,6 @@ DATA ID	Coordinates	Latitude	Longitude	Tipo	Name	Address	Postal Code	City	Provin
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script type="text/javascript">
-        function prepara_lens(elemento) {
-            $(elemento).find('.carousel').flickity({
-                // options
-                cellAlign: 'center',
-                contain: true
-            });
-            console.log("aqui estoy2");
-            cosa = elemento;
-        }
-    </script>
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
     <style>
@@ -142,28 +131,13 @@ DATA ID	Coordinates	Latitude	Longitude	Tipo	Name	Address	Postal Code	City	Provin
 
 
     <script>
-            (function($){
-                $.event.special.destroyed = {
-                  remove: function(o) {
-                    if (o.handler) {
-                      o.handler()
-                    }
-                  }
-                }
-              })(jQuery)
-              
-
-        function imagen(im) {
-
-        }
-        var evento, cosa2, cosa3, caro, imgs, mycarousel;
         jQuery(document).bind("onItemShow.exhibit", function (event, item, node) {
             $('.infoboxproyecto').empty();
             $('.infoboxproyecto').append('<div class="carousel-proyecto" ></div>');
 
-            imgs = $(node).attr('carousel').split(';');
+            var imgs = $(node).attr('carousel').split(';');
 
-            mycarousel = $('.carousel-proyecto');
+            var mycarousel = $('.carousel-proyecto');
             mycarousel.empty();
             for (var i = 0, len = imgs.length; i < len; i++) {
                 mycarousel.append('<img height="120" src="' + imgs[i] + '" alt="imagen carrusel">');
