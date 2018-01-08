@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Arasaac en el mundo</title>
@@ -50,6 +50,9 @@
             display: block;
             height: 120px;
         }
+        .map-lens .flickity-prev-next-button {
+            display: none;
+        }
     </style>
 </head>
 
@@ -84,9 +87,7 @@
                     data-ex-pin="false" data-ex-color-key=".Tipo" data-ex-bubble-maxWidth="200">
                 </div>
 
-                <div class="map-lens " data-ex-item-types="Item" data-ex-role="lens" 
-                    data-ex-carousel-content=".Pictures"
-                    style="display: none">
+                <div class="map-lens " data-ex-item-types="Item" data-ex-role="lens" data-ex-carousel-content=".Pictures" style="display: none">
 
                     <div data-ex-if-exists=".Picture">
 
@@ -152,16 +153,16 @@
             });
 
             mycarousel.flickity('resize');
-            
-            $(document).on('click', 'img[src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png"]', 
-                function(){
-                    $('.infoboxproyecto').hide();
-            });
-            $(document).on('click', 'img[src="https://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png"]', 
-                function(){
-                    $('.infoboxproyecto').hide();
-            });
         });
+
+        $(document).on('click', 'img[src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png"]',
+            function () {
+                $('.infoboxproyecto').hide();
+            });
+        $(document).on('click', 'img[src="https://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png"]',
+            function () {
+                $('.infoboxproyecto').hide();
+            });
     </script>
 
 
